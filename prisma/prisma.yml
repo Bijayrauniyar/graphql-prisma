@@ -1,0 +1,7 @@
+endpoint: http://192.168.99.100:4466/s2/dev
+datamodel: datamodel.prisma
+databaseType: document
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/

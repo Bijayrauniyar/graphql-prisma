@@ -1,0 +1,49 @@
+type Query {
+  publishedPosts: [Post!]!
+  post(id: ID!): Post
+  postsByUser(userId: ID!): [Post!]!
+}
+
+type Mutation { 
+  signup(data: CreateUserInput!): AuthPayload!
+  login(data: LoginUserInput!): AuthPayload!
+  createDraft(title: String!, userId: ID!): Post
+  updatePost(id: ID!, data: UpdatePostInput!): Post!
+}  
+
+input CreateUserInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+input LoginUserInput {
+    email: String!
+    password: String!
+}
+
+input UpdatePostInput {
+    title: String
+    body: String
+    published: Boolean
+}
+
+type User {
+  id: ID!
+  email: String
+  name: String!
+  password: String!
+  posts: [Post!]!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  published: Boolean!
+  author: User
+}

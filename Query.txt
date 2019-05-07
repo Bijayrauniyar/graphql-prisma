@@ -1,0 +1,187 @@
+query{
+  user(where:{id:"5caeea9924aa9a000748f95b"}){
+    id
+    name
+  }
+}
+
+query{
+  users(orderBy:id_ASC){
+    id
+    name
+  }
+}
+
+
+//query and mutations examples
+//query
+
+query bookingEvent{
+  bookings{
+    _id
+    user{
+      email
+    }
+    
+    event{
+      title
+      description
+      price
+      date
+      creator{
+        email
+      }
+    }
+  
+   
+    createdAt
+    updatedAt
+  }
+}
+
+query event {
+  events {
+    _id
+    title
+    description
+    date
+    price
+   creator{
+    _id
+    email
+    createdEvents{
+      title
+    }
+  }
+    
+    
+  }
+}
+
+mutation bookEvent($eventId :ID!){
+  bookEvent(eventId:$eventId){
+    _id
+    event{
+      title
+      description
+      date
+      price
+      _id
+      creator{
+        email
+      }
+    }
+   
+   
+    createdAt
+    updatedAt
+    
+  }
+}
+
+mutation cancelBokking($bookingId:ID!){
+  cancelBooking(bookingId:$bookingId){
+    
+      _id
+    title
+    creator{
+      email
+    }
+
+      
+    
+      
+  }
+  
+}
+
+mutation createEvent($inputEvent: EventInput!) {
+    createEvent(eventInput: $inputEvent) {
+     _id
+    title
+    description
+    date
+    price
+    creator{
+      email
+      _id
+
+    }
+   
+  }
+}
+
+
+mutation createUser($inputUser: UserInput!) {
+  createUser(userInput: $inputUser) {
+    _id
+    email
+    password
+  }
+}
+
+
+
+//query variable
+{
+  "inputEvent": {
+    "title": "nthis is new title of event",
+    "description": "This is a great event!",
+    "price": 123,
+    "date": "Fri Apr 05 2019 11:10:13"
+  },
+  "inputUser": {
+    "email": "email@mail.com",
+    "password": "pass123"
+  },
+  "eventId": "5caac397e2fb0f1578cb1fdf",
+  "bookingId": "5caac3b1e2fb0f1578cb1fe1"
+}
+
+
+// Bearer + token  example set in header with postman
+
+Authrization   Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlAbWFpbC5jb20iLCJ1c2VySWQiOiI1YzY2ODg5YmEwNDcxMDA0YTQ3YjEyMmYiLCJpYXQiOjE1NTAyMjM2MjgsImV4cCI6MTU1MDIyNzIyOH0.XdnL_uwRGdSmUqkbqnjCtFpKyzhLFKcNVdIQMNvMmrE
+
+//login with postman query that will return userId , token and tokenExpiration
+{
+  "query":"query { login(email:\"email@mail.com\", password:\"pass123\"){  userId token tokenExpiration} }"
+}
+
+//create event with postman and Authrization token in header
+
+{
+  "query": " mutation { createEvent(eventInput:{ title:\"this is title of event from postman\", description:\"desccription of event \", price:3733, date: \"Fri Apr 05 2019 11:10:13\"}) { _id title description price date}  } "
+}
+
+//booking event with postman and Authrization token in header
+{
+  "query": " mutation { bookEvent(eventId:\"5caaebe33da6952f34865c20\") { _id event{ _id title description price date creator{_id email }}}  } "
+}
+
+// cancel booking with postman and Authrization token in header
+{
+  "query": " mutation { cancelBooking(bookingId:\"5caaed633da6952f34865c22\") { _id title description price date creator{_id email }}  } "
+}
+
+//query events with postman and Authrization
+{
+  "query": "query { events {_id title description price date } }"
+}
+
+
+// query bookings with postman and Authrization 
+{
+  "query": "query { bookings {_id user{ email } event{ title description price date }} }"
+}
+
+connection 3 standard with nodemonjson environment variable
+ `mongodb+srv://${process.env.MONGO_USER}:${
+      process.env.MONGO_PASSWORD
+    }@cluster0-ntrwp.mongodb.net/${process.env.MONGO_DB}?retryWrites=true`
+
+ connection 1
+`mongodb+srv://bj-mongodb-graphql:bj@mongodb@graphql@node-rest-shop-se6sv.mongodb.net/graphql?retryWrites=true`
+
+connection 2
+`mongodb+srv://bj-mangodb:toIyreW2Iilu3RxP@node-rest-shop-se6sv.mongodb.net/graphql?retryWrites=true`  
