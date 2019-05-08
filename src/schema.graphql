@@ -12,8 +12,11 @@ type Mutation {
 }  
 
 type Subscription {
-    post: PostSubscriptionPayload!
+    post: Post
+    count: Int!
 }
+
+
 
 enum MutationType {
     CREATED

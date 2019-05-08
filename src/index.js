@@ -1,6 +1,6 @@
 const  jwt =  require("jsonwebtoken") ;
 const {prisma} = require('../prisma/generated/prisma-client')
-const { GraphQLServer } = require('graphql-yoga');
+const { GraphQLServer,PubSub } = require('graphql-yoga');
 const  bcrypt = require('bcryptjs');
 const {getUserId} = require('./utils/getUserId');
 const {Query} = require('./resolvers/Query');
@@ -142,7 +142,8 @@ const server = new GraphQLServer({
   context(request) {
     return {
         prisma,
-        request
+        request,
+        PubSub
     }
 }
  
